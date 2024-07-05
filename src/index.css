@@ -15,3 +15,51 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #fc8019;
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #fc8019 transparent;
+}
+
+.custom-scrollbar::-moz-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-moz-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-moz-scrollbar-thumb {
+  background-color: #fc8019;
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+/* Other custom styles */
+.p-2 {
+  padding: 0.5rem;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+  border-color: #fc7f1948;
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
