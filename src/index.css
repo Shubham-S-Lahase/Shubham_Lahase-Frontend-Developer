@@ -55,11 +55,16 @@ code {
   padding: 0.5rem;
 }
 
-.border-b {
+.border-bw {
   border-bottom-width: 1px;
   border-color: #fc7f1948;
 }
 
 .bg-transparent {
   background-color: transparent;
+}
+
+.bgtheme{
+  background-color: #fc8019;
+  opacity: 0.8;
 }

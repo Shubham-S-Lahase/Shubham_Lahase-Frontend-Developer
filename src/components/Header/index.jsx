@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { SearchContext } from "../../context/searchContext";
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch, addRecentSearch } from "../../store/searchSlice";
 
 const Header = () => {
-  const { search, setSearch } = useContext(SearchContext); // Get search state and setter from context
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search.search);
   const [foodItems, setFoodItems] = useState([]); // State to store fetched food items
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const modalRef = useRef(null); // Ref to track modal element
@@ -35,14 +37,8 @@ const Header = () => {
   const handleOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       setShowModal(false);
-      setSearch(""); // Clear search input when modal closes
+      dispatch(setSearch("")); // Clear search input when modal closes
     }
-  };
-
-  // Handle mouse leaving the modal to close it
-  const handleMouseLeave = () => {
-    setShowModal(false);
-    setSearch(""); 
   };
 
 
@@ -54,8 +50,14 @@ const Header = () => {
     };
   });
 
+  const handleItemClick = (item) => {
+    dispatch(addRecentSearch(item));
+    setShowModal(false);
+    dispatch(setSearch("")); // Clear search input when an item is clicked
+  }
+
   return (
-    <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-white shadow-md relative">
+    <header className="flex flex-col md:flex-row justify-between items-center p-4 md:px-16 lg:px-20 bg-white shadow-md relative">
       <div className="flex items-center space-x-2 mb-2 md:mb-0">
         <img
           src="https://cdn.worldvectorlogo.com/logos/swiggy-1.svg"
@@ -70,7 +72,7 @@ const Header = () => {
         <input
           type="text"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => dispatch(setSearch(e.target.value))}
           className="border rounded p-2 pl-3 w-full font-medium bg-gray-200 focus:outline-none placeholder-gray-600 text-sm md:text-base"
           placeholder="Search for meals..."
         />
@@ -86,15 +88,14 @@ const Header = () => {
         <div
           ref={modalRef}
           className="absolute right-4 top-full mt-2 w-[92%] md:w-[48%] lg:w-[32.5%] bg-white border rounded shadow-lg z-10 max-h-[60vh] overflow-y-auto custom-scrollbar"
-          onMouseLeave={handleMouseLeave}
         >
           {foodItems.length > 0 ? (
             <ul>
               {foodItems.map((item) => (
                 <li
                   key={item.idMeal}
-                  className="p-2 bg-transparent border-b cursor-pointer"
-                  onClick={() => console.log("Clicked:", item.strMeal)} // Example onClick handler
+                  className="p-2 bg-transparent border-bw cursor-pointer"
+                  onClick={() => handleItemClick(item)}
                 >
                   {item.strMeal}
                 </li>
