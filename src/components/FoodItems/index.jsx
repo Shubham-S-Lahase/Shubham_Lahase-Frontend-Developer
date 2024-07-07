@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import FilterSection from '../Filter';
 
+// Utility function to shuffle an array
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 const FoodItems = ({onFoodItemClick}) => {
   const [foodItems, setFoodItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [areaFilter, setAreaFilter] = useState('');
   const [sortOrder, setSortOrder] = useState('');
+  const [shuffledItems, setShuffledItems] = useState([]);
 
   // Fetch default food items on component mount
   useEffect(() => {
@@ -13,9 +23,10 @@ const FoodItems = ({onFoodItemClick}) => {
       try {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian');
         const data = await response.json();
-        console.log(data);
-        setFoodItems(data.meals || []);
-        setFilteredItems(data.meals || []);
+        const shuffledItems = shuffleArray(data.meals || []);
+        setFoodItems(shuffledItems);
+        setFilteredItems(shuffledItems);
+        setShuffledItems(shuffledItems); // Save the shuffled items for the "Default" option
       } catch (error) {
         console.error('Error fetching food items:', error);
       }
@@ -31,22 +42,29 @@ const FoodItems = ({onFoodItemClick}) => {
         try {
           const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${areaFilter}`);
           const data = await response.json();
-          let items = data.meals || [];
-          
-          if (sortOrder === 'alphabetical') {
+          let items = shuffleArray(data.meals || []);
+          if(sortOrder === 'alphabetical') {
             items.sort((a, b) => a.strMeal.localeCompare(b.strMeal));
+          }else if(sortOrder === "default") {
+            items = [...shuffledItems]; //Revert to the initial shuffled items
           }
           setFilteredItems(items);
         } catch (error) {
           console.error('Error fetching filtered items:', error);
         }
       } else {
-        setFilteredItems(foodItems);
+        let items = [...foodItems];
+        if(sortOrder === 'alphabetical'){
+          items.sort((a, b) => a.strMeal.localeCompare(b.strMeal));
+        }else if(sortOrder === "default") {
+          items = [...shuffledItems]; //Revert to the initial shuffled items
+        }
+        setFilteredItems(items);
       }
     };
 
     fetchFilteredItems();
-  }, [areaFilter, sortOrder, foodItems]);
+  }, [areaFilter, sortOrder, foodItems, shuffledItems]);
 
   return (
     <div>

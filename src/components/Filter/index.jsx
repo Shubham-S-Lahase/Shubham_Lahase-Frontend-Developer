@@ -71,6 +71,7 @@ const FilterSection = ({ setAreaFilter, sortItems }) => {
         </button>
         {activeDropdown === 'sort' && (
           <div className="absolute bg-white border mt-2 p-4 rounded shadow-lg z-10">
+            <div className="cursor-pointer mb-2" onClick={() => handleSortOption("default")}>Default</div>
             <div className="cursor-pointer mb-2" onClick={() => handleSortOption("alphabetical")}>Alphabetical</div>
           </div>
         )}
