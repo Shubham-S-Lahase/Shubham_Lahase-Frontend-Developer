@@ -18,7 +18,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Header />
-        <RecentSearches />
+        <RecentSearches onFoodItemClick={handleFoodItemClick} />
         <FoodItems onFoodItemClick={handleFoodItemClick} />
         {selectedFoodItem && (
           <FoodItemModal

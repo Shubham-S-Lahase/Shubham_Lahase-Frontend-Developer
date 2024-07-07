@@ -1,9 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const RecentSearches = () => {
+const RecentSearches = ({onFoodItemClick}) => {
    // Access recentSearches from the Redux store
   const recentSearches = useSelector((state) => state.search.recentSearches);
+
+  const handleItemClick = (item) => {
+    const mappedItem = {
+      strMeal: item.strMeal || item.name,
+      strMealThumb: item.strMealThumb || item.image,
+    };
+    onFoodItemClick(mappedItem);
+  }
 
   return (
     <div className="p-4 pb-16 border-b md:mx-16 lg:mx-20 border-gray-300">
@@ -16,6 +24,7 @@ const RecentSearches = () => {
                 key={index}
                 className="flex-shrink-0 w-64 h-60 ssm:w-32 ssm:h-32 relative rounded-xl bg-cover bg-center flex items-end p-2 text-white font-bold overflow-hidden"
                 style={{ backgroundImage: `url(${item.strMealThumb})` }}
+                onClick={() => handleItemClick(item)}
               >
                 <div className="bg-black bg-opacity-50 w-full text-left p-1 rounded-b ssm:text-xs">
                   <span className="truncate">{item.strMeal}</span>
