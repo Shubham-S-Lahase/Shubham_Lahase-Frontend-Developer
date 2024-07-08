@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const RecentSearches = ({onFoodItemClick}) => {
-   // Access recentSearches from the Redux store
+const RecentSearches = ({ onFoodItemClick }) => {
+  // Access recentSearches from the Redux store
   const recentSearches = useSelector((state) => state.search.recentSearches);
 
   const handleItemClick = (item) => {
@@ -12,11 +12,16 @@ const RecentSearches = ({onFoodItemClick}) => {
       strMealThumb: item.strMealThumb || item.image,
     };
     onFoodItemClick(mappedItem);
-  }
+  };
 
   return (
     <div className="p-4 pb-16 border-b md:mx-16 lg:mx-40 border-gray-300">
-      <h2 className="text-xl font-bold mb-8 mt-4 gilroyb" style={{color: "rgba(2, 6, 12, 0.92)"}}>Recent Searches</h2>
+      <h2
+        className="text-xl font-bold mb-8 mt-4 gilroyb"
+        style={{ color: "rgba(2, 6, 12, 0.92)" }}
+      >
+        Recent Searches
+      </h2>
       {recentSearches.length > 0 ? (
         <div overflow-x-auto>
           <ul className="flex max-w-full space-x-4 p-2 overflow-x-auto custom-scrollbar">

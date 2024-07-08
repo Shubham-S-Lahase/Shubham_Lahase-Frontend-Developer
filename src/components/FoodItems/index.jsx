@@ -38,7 +38,7 @@ const FoodItems = ({ onFoodItemClick }) => {
     }
   };
 
-  console.log(setItemsPerRow);
+  // console.log(setItemsPerRow);
 
   // Add event listener to handle window resize
   useEffect(() => {
