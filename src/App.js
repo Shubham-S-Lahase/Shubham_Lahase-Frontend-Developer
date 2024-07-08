@@ -18,6 +18,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Header />
+        <div className="pt-20">
         <RecentSearches onFoodItemClick={handleFoodItemClick} />
         <FoodItems onFoodItemClick={handleFoodItemClick} />
         {selectedFoodItem && (
@@ -26,6 +27,7 @@ function App() {
             onClose={() => setSelectedFoodItem(null)}
           />
         )}
+        </div>
       </div>
     </Provider>
   );

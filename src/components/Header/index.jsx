@@ -57,7 +57,8 @@ const Header = () => {
   }
 
   return (
-    <header className="flex flex-col md:flex-row justify-between items-center p-4 md:px-16 lg:px-20 bg-white shadow-md relative">
+    <header className="fixed top-0 left-0 w-full bg-white z-10 shadow-md">
+    <div className="flex flex-col md:flex-row justify-between items-center p-4 md:px-16 lg:px-20 bg-white shadow-md relative">
       <div className="flex items-center space-x-2 mb-2 md:mb-0">
         <img
           src="https://cdn.worldvectorlogo.com/logos/swiggy-1.svg"
@@ -106,6 +107,7 @@ const Header = () => {
           )}
         </div>
       )}
+    </div>
     </header>
   );
 };
