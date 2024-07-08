@@ -18,33 +18,36 @@ const FoodItems = ({ onFoodItemClick }) => {
   const [originalItems, setOriginalItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerRow, setItemsPerRow] = useState(4);
+  const [loading, setLoading] = useState(true);
 
-  const rowsPerPage = 3; // Number of rows per page
+  const rowsPerPage = 2; // Number of rows per page
 
-   // Function to update the number of items per row based on the screen size
-   const updateItemsPerRow = () => {
+  // Function to update the number of items per row based on the screen size
+  const updateItemsPerRow = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1536) {
-      setItemsPerRow(5);
+      setItemsPerRow(4);
     } else if (screenWidth >= 1280) {
       setItemsPerRow(4);
     } else if (screenWidth >= 1024) {
       setItemsPerRow(3);
     } else if (screenWidth >= 640) {
-      setItemsPerRow(2);
+      setItemsPerRow(3);
     } else {
       setItemsPerRow(1);
     }
   };
 
-    // Add event listener to handle window resize
-    useEffect(() => {
-      updateItemsPerRow();
-      window.addEventListener("resize", updateItemsPerRow);
-      return () => window.removeEventListener("resize", updateItemsPerRow);
-    }, []);
+  console.log(setItemsPerRow);
 
-      // Calculate items per page based on items per row and rows per page
+  // Add event listener to handle window resize
+  useEffect(() => {
+    updateItemsPerRow();
+    window.addEventListener("resize", updateItemsPerRow);
+    return () => window.removeEventListener("resize", updateItemsPerRow);
+  }, []);
+
+  // Calculate items per page based on items per row and rows per page
   const itemsPerPage = itemsPerRow * rowsPerPage;
 
   // Fetch default food items on component mount
@@ -62,8 +65,10 @@ const FoodItems = ({ onFoodItemClick }) => {
           ...prev,
           Indian: shuffledItems,
         }));
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching food items:", error);
+        setLoading(false);
       }
     };
 
@@ -73,6 +78,7 @@ const FoodItems = ({ onFoodItemClick }) => {
   // Update filtered items when area filter or sort order changes
   useEffect(() => {
     const fetchFilteredItems = async () => {
+      setLoading(true);
       if (areaFilter) {
         if (!regionShuffledItems[areaFilter]) {
           try {
@@ -110,6 +116,7 @@ const FoodItems = ({ onFoodItemClick }) => {
         }
         setFilteredItems(items);
       }
+      setLoading(false);
       setCurrentPage(1);
     };
 
@@ -132,42 +139,68 @@ const FoodItems = ({ onFoodItemClick }) => {
 
   return (
     <div className="border-b border-gray-300 pb-8 mb-8 mt-4 md:mx-16 lg:mx-40">
-      <h2 className="pl-4 pt-8 text-xl font-bold">Top {areaFilter || 'Indian'} Food Items:</h2>
+      <h2
+        className="pl-4 pt-8 text-xl font-bold gilroyb"
+        style={{ color: "rgba(2, 6, 12, 0.92)" }}
+      >
+        Top {areaFilter || "Indian"} Food Items:
+      </h2>
       <FilterSection setAreaFilter={setAreaFilter} sortItems={setSortOrder} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 p-4 pt-8">
-        {currentItems.map((item) => (
-          <div
-            key={item.idMeal}
-            className="p-1"
-            onClick={() => onFoodItemClick(item)}
-          >
-            <img
-              src={item.strMealThumb}
-              alt={item.strMeal}
-              className="w-full h-60 object-cover rounded-2xl"
-            />
-            <h3 className="mt-2 ml-4 font-bold">{item.strMeal}</h3>
-            <p className="ml-4">
-              Rating: {Math.floor(Math.random() * 5) + 1} stars
-            </p>
+      {loading ? (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 p-4 pt-8">
+            {currentItems.map((item) => (
+              <div
+                key={item.idMeal}
+                className="p-1"
+                onClick={() => onFoodItemClick(item)}
+              >
+                <img
+                  src={item.strMealThumb}
+                  alt={item.strMeal}
+                  className="w-full h-60 object-cover rounded-2xl"
+                />
+                <h3
+                  className="mt-2 ml-4 font-bold gilroyb"
+                  style={{ color: "rgba(2, 6, 12, 0.92)" }}
+                >
+                  {item.strMeal}
+                </h3>
+                <p
+                  className="ml-4 gilroy font-semibold"
+                  style={{ color: "rgba(2, 6, 12, 0.6)" }}
+                >
+                  Rating: {Math.floor(Math.random() * 5) + 1} stars
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="flex justify-center items-center mt-4">
-          <img src="/back.png" 
-          alt=""           o
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="px-4 py-2 mx-2 cursor-pointer w-16 h-12" />
-        <span className="px-4 py-2">
-          Page {currentPage} of {totalPages}
-        </span>
-          <img src="/next.png" 
-          alt=""           
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 mx-2 cursor-pointer w-16 h-12" />
-      </div>
+          <div className="flex justify-center items-center mt-4">
+            <img
+              src="/back.png"
+              alt=""
+              o
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              className="px-4 py-2 mx-2 cursor-pointer w-16 h-12"
+            />
+            <span className="px-4 py-2 gilroy font-semibold">
+              Page {currentPage} of {totalPages}
+            </span>
+            <img
+              src="/next.png"
+              alt=""
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 mx-2 cursor-pointer w-16 h-12"
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

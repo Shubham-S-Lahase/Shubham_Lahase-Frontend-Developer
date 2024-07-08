@@ -16,7 +16,7 @@ const RecentSearches = ({onFoodItemClick}) => {
 
   return (
     <div className="p-4 pb-16 border-b md:mx-16 lg:mx-40 border-gray-300">
-      <h2 className="text-xl font-bold mb-8 mt-4">Recent Searches</h2>
+      <h2 className="text-xl font-bold mb-8 mt-4 gilroyb" style={{color: "rgba(2, 6, 12, 0.92)"}}>Recent Searches</h2>
       {recentSearches.length > 0 ? (
         <div overflow-x-auto>
           <ul className="flex max-w-full space-x-4 p-2 overflow-x-auto custom-scrollbar">
@@ -28,7 +28,7 @@ const RecentSearches = ({onFoodItemClick}) => {
                 onClick={() => handleItemClick(item)}
               >
                 <div className="bg-black bg-opacity-50 w-full text-left p-1 rounded-b ssm:text-xs">
-                  <span className="truncate">{item.strMeal}</span>
+                  <span className="truncate gilroyb">{item.strMeal}</span>
                 </div>
               </li>
             ))}

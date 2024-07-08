@@ -5,6 +5,7 @@ import store from "./store";
 import RecentSearches from "./components/recentSearches";
 import FoodItems from "./components/FoodItems";
 import FoodItemModal from "./components/FoodIetmModal";
+import Footer from "./components/Footer";
 
 function App() {
   const [selectedFoodItem, setSelectedFoodItem] = useState(null); // State to track the currently selected food item for the modal
@@ -27,6 +28,7 @@ function App() {
             onClose={() => setSelectedFoodItem(null)}
           />
         )}
+        <Footer/>
         </div>
       </div>
     </Provider>

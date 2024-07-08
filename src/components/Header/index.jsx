@@ -65,7 +65,7 @@ const Header = () => {
           alt="Swiggy Logo"
           className="h-8"
         />
-        <div className="text-lg md:text-2xl font-bold" style={{ color: "#fc8019" }}>
+        <div className="text-lg md:text-2xl font-bold gilroyb" style={{ color: "#fc8019" }}>
           SWIGGY
         </div>
       </div>
@@ -74,7 +74,7 @@ const Header = () => {
           type="text"
           value={search}
           onChange={(e) => dispatch(setSearch(e.target.value))}
-          className="border rounded p-2 pl-3 w-full font-medium bg-gray-200 focus:outline-none placeholder-gray-600 text-sm md:text-base"
+          className="border rounded p-2 pl-3 w-full bg-gray-200 focus:outline-none placeholder-gray-600 text-sm md:text-base gilroy font-semibold"
           placeholder="Search for meals..."
         />
         <img
@@ -95,7 +95,7 @@ const Header = () => {
               {foodItems.map((item) => (
                 <li
                   key={item.idMeal}
-                  className="p-2 bg-transparent border-bw cursor-pointer"
+                  className="p-2 bg-transparent border-bw cursor-pointer gilroy"
                   onClick={() => handleItemClick(item)}
                 >
                   {item.strMeal}

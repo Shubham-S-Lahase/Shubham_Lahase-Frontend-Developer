@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Gilroy';
+  src: url("/public/fonts/Gilroy-Regular.ttf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy-bold';
+  src: url('/public/fonts/Gilroy-Bold.ttf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -82,3 +96,34 @@ code {
   animation: l6 2s infinite ;
 }
 @keyframes l6 {to{transform: rotate(1turn)}}
+
+
+.ftcolor{
+  color: rgba(255, 255, 255, 0.6)
+}
+
+.gilroy{
+  font-family: 'Gilroy';
+}
+
+.gilroyb{
+  font-family: 'Gilroy-bold';
+}
+
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-in.loaded {
+  opacity: 1;
+}
+
+/* Loader styling */
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 600px; /* Adjust this based on your expected content height */
+}

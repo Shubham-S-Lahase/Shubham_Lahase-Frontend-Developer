@@ -75,10 +75,10 @@ const FoodItemModal = ({ foodItem, onClose }) => {
           alt={foodItem.strMeal}
           className="w-full h-80 object-cover rounded"
         />
-        <h3 className="mt-2 font-bold">{detailedFoodItem.strMeal}</h3>
-        <p className="mt-1">Category: {detailedFoodItem.strCategory}</p>
-        <p className="mt-1">Area: {detailedFoodItem.strArea}</p>
-        <p className="mt-1">Tags: {detailedFoodItem.strTags}</p>
+        <h3 className="mt-2 font-bold gilroyb" style={{color: "rgba(2, 6, 12, 0.92)"}}>{detailedFoodItem.strMeal}</h3>
+        <p className="mt-1 gilroy">Category: {detailedFoodItem.strCategory}</p>
+        <p className="mt-1 gilroy">Area: {detailedFoodItem.strArea}</p>
+        <p className="mt-1 gilroy">Tags: {detailedFoodItem.strTags}</p>
       </div>
     </div>
   );
