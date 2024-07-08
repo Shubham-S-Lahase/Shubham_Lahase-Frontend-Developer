@@ -15,7 +15,7 @@ const RecentSearches = ({onFoodItemClick}) => {
   }
 
   return (
-    <div className="p-4 pb-16 border-b md:mx-16 lg:mx-20 border-gray-300">
+    <div className="p-4 pb-16 border-b md:mx-16 lg:mx-40 border-gray-300">
       <h2 className="text-xl font-bold mb-8 mt-4">Recent Searches</h2>
       {recentSearches.length > 0 ? (
         <div overflow-x-auto>

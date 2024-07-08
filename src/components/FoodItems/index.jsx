@@ -16,6 +16,36 @@ const FoodItems = ({ onFoodItemClick }) => {
   const [sortOrder, setSortOrder] = useState("");
   const [regionShuffledItems, setRegionShuffledItems] = useState({});
   const [originalItems, setOriginalItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerRow, setItemsPerRow] = useState(4);
+
+  const rowsPerPage = 3; // Number of rows per page
+
+   // Function to update the number of items per row based on the screen size
+   const updateItemsPerRow = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1536) {
+      setItemsPerRow(5);
+    } else if (screenWidth >= 1280) {
+      setItemsPerRow(4);
+    } else if (screenWidth >= 1024) {
+      setItemsPerRow(3);
+    } else if (screenWidth >= 640) {
+      setItemsPerRow(2);
+    } else {
+      setItemsPerRow(1);
+    }
+  };
+
+    // Add event listener to handle window resize
+    useEffect(() => {
+      updateItemsPerRow();
+      window.addEventListener("resize", updateItemsPerRow);
+      return () => window.removeEventListener("resize", updateItemsPerRow);
+    }, []);
+
+      // Calculate items per page based on items per row and rows per page
+  const itemsPerPage = itemsPerRow * rowsPerPage;
 
   // Fetch default food items on component mount
   useEffect(() => {
@@ -80,17 +110,32 @@ const FoodItems = ({ onFoodItemClick }) => {
         }
         setFilteredItems(items);
       }
+      setCurrentPage(1);
     };
 
     fetchFilteredItems();
   }, [areaFilter, sortOrder, regionShuffledItems, originalItems]);
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
   return (
-    <div>
-      <h2 className="md:mx-16 lg:mx-20 pl-4 pt-8 text-xl font-bold">Top {areaFilter || 'Indian'} Food Items:</h2>
+    <div className="border-b border-gray-300 pb-8 mb-8 mt-4 md:mx-16 lg:mx-40">
+      <h2 className="pl-4 pt-8 text-xl font-bold">Top {areaFilter || 'Indian'} Food Items:</h2>
       <FilterSection setAreaFilter={setAreaFilter} sortItems={setSortOrder} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 p-4 pt-8 md:mx-16 lg:mx-20">
-        {filteredItems.map((item) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 p-4 pt-8">
+        {currentItems.map((item) => (
           <div
             key={item.idMeal}
             className="p-1"
@@ -107,6 +152,21 @@ const FoodItems = ({ onFoodItemClick }) => {
             </p>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center items-center mt-4">
+          <img src="/back.png" 
+          alt=""           o
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className="px-4 py-2 mx-2 cursor-pointer w-16 h-12" />
+        <span className="px-4 py-2">
+          Page {currentPage} of {totalPages}
+        </span>
+          <img src="/next.png" 
+          alt=""           
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 mx-2 cursor-pointer w-16 h-12" />
       </div>
     </div>
   );
