@@ -87,6 +87,7 @@ const FoodItems = ({ onFoodItemClick }) => {
 
   return (
     <div>
+      <h2 className="md:mx-16 lg:mx-20 pl-4 pt-8 text-xl font-bold">Top {areaFilter || 'Indian'} Food Items:</h2>
       <FilterSection setAreaFilter={setAreaFilter} sortItems={setSortOrder} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 p-4 pt-8 md:mx-16 lg:mx-20">
         {filteredItems.map((item) => (

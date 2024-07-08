@@ -40,7 +40,7 @@ const FilterSection = ({ setAreaFilter, sortItems }) => {
   };
 
   return (
-    <div className="flex flex-wrap p-4 pt-16 space-x-4 space-y-2 items-center md:mx-16 lg:mx-20">
+    <div className="flex flex-wrap p-4 pt-8 space-x-4 space-y-2 items-center md:mx-16 lg:mx-20">
       <div className="relative mt-2">
         <button onClick={() => toggleDropdown('filter')} className="flex justify-center items-center gap-2 py-2 px-4 rounded-3xl font-medium" style={{ border: "1px solid rgba(2, 6, 12, 0.15)", color: "rgba(2, 6, 12, 0.75)" }}>Filter <img src="/filter.png" alt="" className='w-4 h-4 mt-1' /></button>
         {activeDropdown === 'filter' && (

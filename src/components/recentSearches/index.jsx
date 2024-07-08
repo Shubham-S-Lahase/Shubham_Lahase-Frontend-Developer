@@ -7,6 +7,7 @@ const RecentSearches = ({onFoodItemClick}) => {
 
   const handleItemClick = (item) => {
     const mappedItem = {
+      idMeal: item.idMeal,
       strMeal: item.strMeal || item.name,
       strMealThumb: item.strMealThumb || item.image,
     };
