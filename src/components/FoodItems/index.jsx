@@ -147,7 +147,7 @@ const FoodItems = ({ onFoodItemClick }) => {
       </h2>
       <FilterSection setAreaFilter={setAreaFilter} sortItems={setSortOrder} />
       {loading ? (
-        <div className="loader-container">
+        <div className="loader-container" data-testid="loader">
           <div className="loader"></div>
         </div>
       ) : (
@@ -182,7 +182,7 @@ const FoodItems = ({ onFoodItemClick }) => {
           <div className="flex justify-center items-center mt-4">
             <img
               src="/back.png"
-              alt=""
+              alt="back"
               o
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
@@ -193,7 +193,7 @@ const FoodItems = ({ onFoodItemClick }) => {
             </span>
             <img
               src="/next.png"
-              alt=""
+              alt="next"
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
               className="px-4 py-2 mx-2 cursor-pointer w-16 h-12"

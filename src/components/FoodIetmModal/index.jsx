@@ -44,6 +44,7 @@ const FoodItemModal = ({ foodItem, onClose }) => {
   if (error) {
     return (
       <div
+        data-testid="modal-overlay"
         className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
         onClick={handleOutsideClick}
       >
@@ -63,7 +64,7 @@ const FoodItemModal = ({ foodItem, onClose }) => {
 
   if (!detailedFoodItem) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div data-testid="modal-overlay" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div className="loader"></div>
       </div>
     ); // Render a loading state until the detailedFoodItem is fetched
@@ -71,6 +72,7 @@ const FoodItemModal = ({ foodItem, onClose }) => {
 
   return (
     <div
+      data-testid="modal-overlay"
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       onClick={handleOutsideClick}
     >
